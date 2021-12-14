@@ -3,7 +3,6 @@ import { GlobalStyle } from "./styles/global";
 import { Dashboard } from "./components/Dashboard";
 import React from "react";
 import WarningModal from "./components/WarningModal";
-const electron = require("electron");
 
 export function App() {
   const [isWarningModalOpen, setOpen] = React.useState(false);
