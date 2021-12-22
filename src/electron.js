@@ -47,9 +47,12 @@ ipcMain.on('LIGAR_PROCESSO', (event, args) => {
 
 ipcMain.on('DESLIGAR_PROCESSO', (event, args) => {
   const { scriptName } = args
-  const scriptToBeKill = global.pythonProcessRunning.find(script => script.name === scriptName)
-  //console.log(scriptToBeKill.name)
-  scriptToBeKill.childProcess.kill('SIGINT')
+  const scriptToBeKillIndex = global.pythonProcessRunning.findIndex(script => script.name === scriptName)
+  //console.log(global.pythonProcessRunning)
+  //console.log('=================AFTER================')
+  global.pythonProcessRunning[scriptToBeKillIndex].childProcess.kill('SIGINT')
+  global.pythonProcessRunning.splice(scriptToBeKillIndex, 1)
+  //console.log(global.pythonProcessRunning)
 })
 
 app.on("ready", createWindow);
