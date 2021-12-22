@@ -2,30 +2,11 @@ import { ServiceList } from "../ServiceList";
 import { ServiceListHeaders } from "../ServiceListHeaders";
 import { Container } from "./style";
 
-interface IDashboardProps {
-  handleWarningModalOpen: () => void;
-  isServiceRunning: boolean;
-  handleServiceRunning: () => void;
-  handleServiceStopping: () => void;
-}
-
-export function Dashboard(
-  {
-    isServiceRunning,
-    handleServiceRunning,
-    handleServiceStopping,
-    handleWarningModalOpen,
-  }: IDashboardProps
-) {
+export function Dashboard() {
   return (
     <Container>
       <ServiceListHeaders />
-      <ServiceList
-        isServiceRunning={isServiceRunning}
-        handleServiceRunning={handleServiceRunning}
-        handleServiceStopping={handleServiceStopping}
-        handleWarningModalOpen={handleWarningModalOpen}
-      />
+      <ServiceList />
     </Container>
   )
 }

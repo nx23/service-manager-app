@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -7,44 +6,28 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import warningImg from '../../assets/Warning.svg'
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 2,
-};
+import { style } from './style'
+import { useTogglePythonService } from '../../context/TogglePythonService'
 
 interface IWarningModal {
-  isWarningModalOpen: boolean;
-  handleWarningModalClose: () => void;
-  handleServiceRunning: () => void;
-  handleServiceStopping: () => void;
+  scriptName: string;
 }
 
-export default function WarningModal(
-  {
+export default function WarningModal({ scriptName }: IWarningModal) {
+
+  const {
     isWarningModalOpen,
-    handleServiceRunning,
-    handleServiceStopping,
-    handleWarningModalClose,
-  }: IWarningModal
-) {
+    handleTogglePythonService,
+    handleToggleWarningModal
+  } = useTogglePythonService()
 
   function handleConfirm() {
-    handleServiceStopping()
-    handleWarningModalClose()
+    handleToggleWarningModal()
+    handleTogglePythonService(scriptName)
   }
 
   function handleCancel() {
-    handleServiceRunning()
-    handleWarningModalClose()
+    handleToggleWarningModal()
   }
 
   return (
@@ -69,7 +52,7 @@ export default function WarningModal(
             </Stack>
             <Stack direction="column" spacing={5} alignItems={"center"}>
               <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                {`Você está prestes a encerrar o serviço, tem certeza disso ?`}
+                {`Você está prestes a encerrar o serviço ${scriptName}, tem certeza disso ?`}
               </Typography>
               <Stack direction="row" spacing={{ xs: 1, sm: 2, md: 10 }}>
                 <Button
