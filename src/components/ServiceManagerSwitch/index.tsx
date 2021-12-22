@@ -2,7 +2,6 @@
 import { styled } from '@mui/material/styles';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 import { useTogglePythonService } from '../../context/TogglePythonService'
-import WarningModal from "../WarningModal";
 
 interface IServiceManagerSwitch {
   scriptName: string;
@@ -64,24 +63,23 @@ export function ServiceManagerSwitch({ scriptName }: IServiceManagerSwitch) {
     handleToggleWarningModal
   } = useTogglePythonService()
 
+  const script = pythonServices.find(script => script.name === scriptName)!
+
   function handlePythonService() {
-      if (pythonServices.find(script => script.name === scriptName)!.isRunning) {
-        handleToggleWarningModal()
+      if (script.isRunning) {
+        handleToggleWarningModal(script.name)
       } else {
-        handleTogglePythonService(scriptName)
+        handleTogglePythonService(script.name)
       }
     }
 
   return (
     <>    
       <GreenSwitch
-        id={scriptName}
-        checked={pythonServices.find(script => script.name === scriptName)!.isRunning}
+        id={script.name}
+        checked={script.isRunning}
         onChange={handlePythonService}
         inputProps={{ 'aria-label': 'controlled' }}
-      />
-      <WarningModal
-        scriptName={scriptName}
       />
     </>
 

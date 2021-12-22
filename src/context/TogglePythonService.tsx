@@ -5,13 +5,17 @@ interface IPythonService {
   name: string, isRunning: boolean
 }
 
+interface IWarningModal {
+  name: string, isOpen: boolean
+}
+
 interface IPythonServices extends Array<IPythonService>{}
 
 interface IPythonServiceContext {
   pythonServices: IPythonServices;
-  isWarningModalOpen: boolean;
+  isWarningModalOpen: IWarningModal;
   handleTogglePythonService: (scriptName:string) => void;
-  handleToggleWarningModal: () => void;
+  handleToggleWarningModal: (scriptName:string) => void;
 }
 
 const PythonServiceContext = createContext({} as IPythonServiceContext);
@@ -30,6 +34,7 @@ export function PythonServiceProvider({ children }: IContextProps) {
       {name:'AberturaZona2', isRunning: false},
       {name:'UmbrellaAPI', isRunning: false}
     ]
+    const defaultWarningModalState = {name:'empty', isOpen: false}
 
   const [pythonServices, setPythonServices] = useState(defaultPythonServicesState)
   function handleTogglePythonService (scriptName: string) {
@@ -53,8 +58,10 @@ export function PythonServiceProvider({ children }: IContextProps) {
     setPythonServices(newPythonServices)
   }
 
-  const [isWarningModalOpen, setIsWarningModalOpen] = React.useState(false)
-  function handleToggleWarningModal () {setIsWarningModalOpen(!isWarningModalOpen)}
+  const [isWarningModalOpen, setIsWarningModalOpen] = React.useState(defaultWarningModalState)
+  function handleToggleWarningModal (scriptName: string) {
+    setIsWarningModalOpen({ name: scriptName, isOpen: !isWarningModalOpen.isOpen })
+  }
   return (
     <PythonServiceContext.Provider
       value={{
