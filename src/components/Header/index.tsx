@@ -1,4 +1,4 @@
-import logoImg from "../../assets/Umbrella_logo.svg"
+import logoImg from "../../assets/ServiceManagerLogo.svg"
 import { Container, Content } from "./style"
 
 export function Header() {

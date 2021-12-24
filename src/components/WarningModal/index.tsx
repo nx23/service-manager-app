@@ -26,6 +26,13 @@ export default function WarningModal() {
     handleToggleWarningModal(isWarningModalOpen.name)
   }
 
+
+  //window.addEventListener('message', evt => {
+  //  if (evt.data.type === 'ERRO_NO_PROCESSO') {
+  //    console.log(`FALHA NA ABERTURA DO ${evt.data.scriptName}`)
+  //  }
+  //});
+
   return (
     <>
       <Modal

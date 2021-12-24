@@ -26,13 +26,8 @@ interface IContextProps {
 
 export function PythonServiceProvider({ children }: IContextProps) {
   const defaultPythonServicesState = [
-      {name:'VPA', isRunning: false},
-      {name:'DispDimerr', isRunning: false},
-      {name:'TicketFast', isRunning: false},
-      {name:'ConsultaKO', isRunning: false},
-      {name:'ListaRestritiva', isRunning: false},
-      {name:'AberturaZona2', isRunning: false},
-      {name:'UmbrellaAPI', isRunning: false}
+      {name:'Service1', isRunning: false},
+      {name:'Service2', isRunning: false}
     ]
     const defaultWarningModalState = {name:'empty', isOpen: false}
 

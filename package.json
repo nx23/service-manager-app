@@ -30,7 +30,7 @@
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
     "release": "yarn react-build && electron-builder --publish=always",
-    "build": "yarn react-build && yarn copyfiles -f src/electron.js build && yarn electron-build",
+    "build": "yarn react-build && yarn copyfiles -f src/electron.js build && yarn copyfiles -f src/preload.js build && yarn copyfiles -f src/python/*.pyw build/python && yarn electron-build",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron src/electron.js\""
   },
   "eslintConfig": {

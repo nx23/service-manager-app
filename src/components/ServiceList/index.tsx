@@ -6,8 +6,8 @@ import WarningModal from "../WarningModal";
 export function ServiceList() {
   return (
     <Container>
-      <PythonService scriptName="DispDimerr" />
-      <PythonService scriptName="VPA" />
+      <PythonService scriptName="Service1" />
+      <PythonService scriptName="Service2" />
       <WarningModal/>
     </Container>
   )

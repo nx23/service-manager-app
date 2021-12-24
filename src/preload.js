@@ -3,7 +3,6 @@ const { ipcRenderer } = require('electron');
 process.once('loaded', () => {
   window.addEventListener('message', evt => {
     if (evt.data.type === 'LIGAR_PROCESSO') {
-      console.log(`Esta ligando ${evt.data.scriptName}`)
       ipcRenderer.send(
         'LIGAR_PROCESSO',
         {
@@ -16,7 +15,6 @@ process.once('loaded', () => {
 
   window.addEventListener('message', evt => {
     if (evt.data.type === 'DESLIGAR_PROCESSO') {
-      console.log(`Esta desligando ${evt.data.scriptName}`)
       ipcRenderer.send(
         'DESLIGAR_PROCESSO',
         {
