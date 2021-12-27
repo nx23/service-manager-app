@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
-const isDev = true;
+const isDev = false;
 const { PythonShell } = require('python-shell');
 
 let mainWindow;
@@ -17,19 +17,20 @@ function createWindow() {
       sandbox: true
     }
   });
-  mainWindow.removeMenu()
+  //mainWindow.removeMenu()
   global.pythonProcessRunning = [];
   mainWindow.loadURL(
     isDev
       ? "http://localhost:3000"
-      : `file://${path.join(__dirname, "../public/index.html")}`
+      : `file://${path.join(__dirname, "../build/index.html")}`
   );
   mainWindow.on("closed", () => (mainWindow = null));
 }
 
 ipcMain.on('LIGAR_PROCESSO', (event, args) => {
   const { scriptName } = args
-  let pyshell = new PythonShell(`${__dirname}/python/${scriptName}.pyw`)
+  const pythonFile = path.join(process.resourcesPath, 'python', `${scriptName}.pyw`)
+  let pyshell = new PythonShell(pythonFile)
   pyshell.on('message', function (message) {
     const pythonService = {
       name: args.scriptName,

@@ -3,6 +3,7 @@
   "name": "service-manager-app",
   "version": "0.1.0",
   "private": true,
+  "author": "Gabriel G C Botareli",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -30,7 +31,7 @@
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
     "release": "yarn react-build && electron-builder --publish=always",
-    "build": "yarn react-build && yarn copyfiles -f src/electron.js build && yarn copyfiles -f src/preload.js build && yarn copyfiles -f src/python/*.pyw build/python && yarn electron-build",
+    "build": "yarn react-build && yarn copyfiles -f src/electron.js build && yarn copyfiles -f src/preload.js build && yarn electron-build",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron src/electron.js\""
   },
   "eslintConfig": {
@@ -64,7 +65,29 @@
     "electron": "^16.0.4",
     "electron-builder": "^22.14.5"
   },
+  
   "build": {
-    "extraResources": "python"
+    "appId": "service-manager",
+    "productName": "Service Manager",
+    "target": "NSIS",
+    "files":[
+      "python/*",
+      "node_modules",
+      "package.json",
+      "electron.js"
+    ],
+    "directories":{
+      "buildResources":"build"
+    },
+    "extraResources": [
+      {
+        "from": "./src/python",
+        "to": "python"
+      }
+    ],
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
+    }
   }
 }
