@@ -17,7 +17,7 @@ function createWindow() {
       sandbox: true
     }
   });
-  //mainWindow.removeMenu()
+  mainWindow.removeMenu()
   global.pythonProcessRunning = [];
   mainWindow.loadURL(
     isDev
@@ -32,25 +32,27 @@ ipcMain.on('LIGAR_PROCESSO', (event, args) => {
   const pythonFile = path.join(process.resourcesPath, 'python', `${scriptName}.pyw`)
   let pyshell = new PythonShell(pythonFile)
   pyshell.on('message', function (message) {
-    const pythonService = {
-      name: args.scriptName,
-      pid: message,
-      childProcess: pyshell.childProcess
-    }
-    global.pythonProcessRunning = [...global.pythonProcessRunning, pythonService]
+    console.log(`${message}`)
   })
   pyshell.end(function (err) {
     if (err) {
       throw err;
     };
   });
+  const pythonService = {
+    name: args.scriptName,
+    childProcess: pyshell.childProcess
+  }
+  global.pythonProcessRunning = [...global.pythonProcessRunning, pythonService]
 })
 
 ipcMain.on('DESLIGAR_PROCESSO', (event, args) => {
   const { scriptName } = args
   const scriptToBeKillIndex = global.pythonProcessRunning.findIndex(script => script.name === scriptName)
+  console.log(`${global.pythonProcessRunning[scriptToBeKillIndex].name}`)
   global.pythonProcessRunning[scriptToBeKillIndex].childProcess.kill('SIGINT')
   global.pythonProcessRunning.splice(scriptToBeKillIndex, 1)
+  console.log(`${global.pythonProcessRunning}`)
 })
 
 app.on("ready", createWindow);

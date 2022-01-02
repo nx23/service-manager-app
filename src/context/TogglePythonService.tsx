@@ -9,13 +9,13 @@ interface IWarningModal {
   name: string, isOpen: boolean
 }
 
-interface IPythonServices extends Array<IPythonService>{}
+interface IPythonServices extends Array<IPythonService> { }
 
 interface IPythonServiceContext {
   pythonServices: IPythonServices;
   isWarningModalOpen: IWarningModal;
-  handleTogglePythonService: (scriptName:string) => void;
-  handleToggleWarningModal: (scriptName:string) => void;
+  handleTogglePythonService: (scriptName: string) => void;
+  handleToggleWarningModal: (scriptName: string) => void;
 }
 
 const PythonServiceContext = createContext({} as IPythonServiceContext);
@@ -26,13 +26,13 @@ interface IContextProps {
 
 export function PythonServiceProvider({ children }: IContextProps) {
   const defaultPythonServicesState = [
-      {name:'Service1', isRunning: false},
-      {name:'Service2', isRunning: false}
-    ]
-    const defaultWarningModalState = {name:'empty', isOpen: false}
+    { name: 'Service1', isRunning: false },
+    { name: 'Service2', isRunning: false }
+  ]
+  const defaultWarningModalState = { name: 'empty', isOpen: false }
 
   const [pythonServices, setPythonServices] = useState(defaultPythonServicesState)
-  function handleTogglePythonService (scriptName: string) {
+  function handleTogglePythonService(scriptName: string) {
     const newPythonServices = pythonServices.map(script => {
       if (script.name === scriptName) {
         if (script.isRunning) {
@@ -46,7 +46,7 @@ export function PythonServiceProvider({ children }: IContextProps) {
             scriptName: scriptName
           })
         }
-        return {...script, isRunning: !script.isRunning};
+        return { ...script, isRunning: !script.isRunning };
       }
       return script
     })
@@ -54,7 +54,7 @@ export function PythonServiceProvider({ children }: IContextProps) {
   }
 
   const [isWarningModalOpen, setIsWarningModalOpen] = React.useState(defaultWarningModalState)
-  function handleToggleWarningModal (scriptName: string) {
+  function handleToggleWarningModal(scriptName: string) {
     setIsWarningModalOpen({ name: scriptName, isOpen: !isWarningModalOpen.isOpen })
   }
   return (

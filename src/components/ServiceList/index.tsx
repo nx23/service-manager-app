@@ -8,7 +8,7 @@ export function ServiceList() {
     <Container>
       <PythonService scriptName="Service1" />
       <PythonService scriptName="Service2" />
-      <WarningModal/>
+      <WarningModal />
     </Container>
   )
 }
